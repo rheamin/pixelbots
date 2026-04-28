@@ -3,26 +3,44 @@ namespace SpriteKind {
 }
 
 /** 
-
 0  1  2
 3 [ ] 4
 5  6  7
-
-
  */
+
 //  game start
 tiles.setCurrentTilemap(assets.tilemap`arena`)
+
+
 let player1 = sprites.create(assets.image`hammerBot6`, SpriteKind.Player)
 player1.setPosition(20, 60)
+player1.fx = 50
 sprites.setDataNumber(player1, "dir", 6)
 mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.One), player1)
 mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.One))
 
+let statusbar1 = statusbars.create(40, 10, StatusBarKind.Health)
+statusbar1.setBarBorder(1, 15)
+statusbar1.setPosition(40, 8)
+statusbar1.max = 10
+statusbar1.value = 10
+sprites.setDataSprite(player1, "statusbar", statusbar1)
+sprites.setDataSprite(statusbar1, "player", player1)
+
 let player2 = sprites.create(assets.image`hammerBot6`, SpriteKind.Player)
 player2.setPosition(140, 60)
+player2.fx = 50
+sprites.setDataNumber(player2, "dir", 6)
 mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two), player2)
 mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.Two))
 
+let statusbar2 = statusbars.create(40, 10, StatusBarKind.Health)
+statusbar2.setBarBorder(1, 15)
+statusbar2.setPosition(120, 8)
+statusbar2.max = 10
+statusbar2.value = 10
+sprites.setDataSprite(player2, "statusbar", statusbar2)
+sprites.setDataSprite(statusbar2, "player", player2)
 
 //  button events
 mp.onButtonEvent(mp.MultiplayerButton.A, ControllerButtonEvent.Pressed, function (player: mp.Player) {
@@ -165,6 +183,28 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Attack, function (sprite: Sprite
     if (sprite != sprites.readDataSprite(otherSprite, "parent")) {
         sprites.destroy(otherSprite)
         sprite.sayText("Hit", 2000)
-    }
 
+        // deal damage
+        let sb = sprites.readDataSprite(sprite, "statusbar") as StatusBarSprite
+        sb.value--
+        
+        // knock back
+        const dx = [-50, 0, 50, -50, 50, -50, 0, 50];
+        const dy = [-50, -50, -50, 0, 0, 50, 50, 50];
+
+        let dir = sprites.readDataNumber(sprites.readDataSprite(otherSprite, "parent"), "dir")
+        sprite.setVelocity(dx[dir], dy[dir])
+    }
 })
+
+
+// status bar events
+statusbars.onZero(StatusBarKind.Health, function(status: StatusBarSprite) {
+    
+    game.splash("Match over")
+    game.gameOver(true)
+})
+
+
+// functions
+
