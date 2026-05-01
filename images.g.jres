@@ -44,6 +44,46 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "hammerHitbox"
     },
+    "image10": {
+        "data": "hwQQABAAAAAAAAAAAGAAAAAAAADwZgYAACICAP9vZgAAIgIA//9mBgAiZvD/RG8AAABmBv9E9A8AAGBm/09EDwAAD2b2//QAAP//b///DwDw//////8AAGD/RP///wAAZvZE9P8PAABgZk9EDwAAAABm9vQAAAAAAGDwDwAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "hammerBotAttack0"
+    },
+    "image11": {
+        "data": "hwQQABAAAAAAAABmZgAAAAAA8GZmDwAAAADw////AAAAAPBPRPQAAAAAAP9E9AAAAAAA////AAAAIgDw//8AACAiYmb2/wAAICJiZvb/AAAAIgDw//8AAAAAAP///wAAAAAA/0T0AAAAAPBPRPQAAAAA8P///wAAAADwZmYPAAAAAABmZgAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "hammerBotAttack1"
+    },
+    "image12": {
+        "data": "hwQQABAAAAAAAAAAAAAAAABg8A8AAAAAAGb29AAAAABgZk9EDwAAAGb2RPT/DwAAYP9E////AADw//////8AAAD//2///w8AAAAPZvb/9AAAAGBm/09EDwAAZgb/RPQPACJm8P9EbwAAIgIA//9mBgAiAgD/b2YAAAAAAPBmBgAAAAAAAGAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "hammerBotAttack2"
+    },
+    "image13": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAACACAAAAAAAAIiIAAAAAAAAiIgAAAAAAACACAAAA8P8AYAYA/w9m//9gBv//ZmZP/2/2//RmZk/0b/ZP9GZmT/T//0/0ZvBP9P//T/QPAP///////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "hammerBotAttack3"
+    },
+    "image14": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///////8A8E/0//9P9A9mT/T//0/0ZmZP9G/2T/RmZk//b/b/9GZm//9gBv//ZvD/AGAGAP8PAAAAIAIAAAAAAAAiIgAAAAAAACIiAAAAAAAAIAIAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "hammerBotAttack4"
+    },
+    "image15": {
+        "data": "hwQQABAAAAAAAAYAAAAAAABgZg8AAAAAAGb2/wAgIgBgZv//ACAiAAD2RP8PZiIA8E9E/2BmAADwRPT/ZgYAAABP/29m8AAAAPD///b//wAAAP//////DwAA////RP8GAADw/09Eb2YAAADwRPRmBgAAAABPb2YAAAAAAPAPBgAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "hammerBotAttack5"
+    },
+    "image16": {
+        "data": "hwQQABAAAAAAAABmZgAAAAAA8GZmDwAAAAD///8PAAAAAE9E9A8AAAAAT0T/AAAAAAD///8AAAAAAP//DwAiAAAA/29mJiICAAD/b2YmIgIAAP//DwAiAAAA////AAAAAABPRP8AAAAAAE9E9A8AAAAA////DwAAAADwZmYPAAAAAABmZgAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "hammerBotAttack6"
+    },
+    "image17": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAADwDwYAAAAAAE9vZgAAAADwRPRmBgAA8P9PRG9mAAD///9E/wYAAP//////DwDw///2//8AAE//b2bwAADwRPT/ZgYAAPBPRP9gZgAAAPZE/w9mIgBgZv//ACAiAABm9v8AICIAAGBmDwAAAAAAAAYAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "hammerBotAttack7"
+    },
     "*": {
         "mimeType": "image/x-mkcd-f4",
         "dataEncoding": "base64",

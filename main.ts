@@ -8,6 +8,12 @@ namespace SpriteKind {
 5  6  7
  */
 
+// setup
+let hammerbotImages = [assets.image`hammerBot0`, assets.image`hammerBot1`, assets.image`hammerBot2`, assets.image`hammerBot3`,
+    assets.image`hammerBot4`, assets.image`hammerBot5`, assets.image`hammerBot6`, assets.image`hammerBot7`]
+let hammerbotAttackImages = [assets.image`hammerBotAttack0`, assets.image`hammerBotAttack1`, assets.image`hammerBotAttack2`, assets.image`hammerBotAttack3`,
+    assets.image`hammerBotAttack4`, assets.image`hammerBotAttack5`, assets.image`hammerBotAttack6`, assets.image`hammerBotAttack7`]
+
 //  game start
 tiles.setCurrentTilemap(assets.tilemap`arena`)
 
@@ -15,6 +21,7 @@ tiles.setCurrentTilemap(assets.tilemap`arena`)
 let player1 = sprites.create(assets.image`hammerBot6`, SpriteKind.Player)
 player1.setPosition(20, 60)
 player1.fx = 50
+sprites.setDataBoolean(player1, "attacking", false)
 sprites.setDataNumber(player1, "dir", 6)
 mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.One), player1)
 mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.One))
@@ -42,14 +49,19 @@ statusbar2.value = 10
 sprites.setDataSprite(player2, "statusbar", statusbar2)
 sprites.setDataSprite(statusbar2, "player", player2)
 
-//  button events
+//  button eventsacvainvesting.ca
 mp.onButtonEvent(mp.MultiplayerButton.A, ControllerButtonEvent.Pressed, function (player: mp.Player) {
     const dx = [-4, 0, 4, -4, 4, -4, 0, 4];
     const dy = [-4, -4, -4, 0, 0, 4, 4, 4];
+    // change sprite image
+    let sprite = mp.getPlayerSprite(player)
+    sprite.setImage(hammerbotAttackImages[sprites.readDataNumber(sprite, "dir")])
+    sprites.setDataBoolean(sprite, "attacking", true)
     //  create attack sprite
     let attackHB = sprites.create(assets.image`hammerHitbox`, SpriteKind.Attack)
     attackHB.setFlag(SpriteFlag.Invisible, true)
     attackHB.lifespan = 500
+
     // set position
     let dir = sprites.readDataNumber(mp.getPlayerSprite(player), "dir")
     let x = mp.getPlayerSprite(player).x + dx[dir]
@@ -58,60 +70,82 @@ mp.onButtonEvent(mp.MultiplayerButton.A, ControllerButtonEvent.Pressed, function
 
     //  assign the player as parent
     sprites.setDataSprite(attackHB, "parent", mp.getPlayerSprite(player))
+
+
+    timer.after(500, function() {
+        sprite.setImage(hammerbotImages[sprites.readDataNumber(sprite, "dir")])
+        sprites.setDataBoolean(sprite, "attacking", false)
+    })
 })
+
 mp.onButtonEvent(mp.MultiplayerButton.Left, ControllerButtonEvent.Pressed, function (player: mp.Player) {
     let sprite = mp.getPlayerSprite(player)
+    // set direction
     if (mp.isButtonPressed(player, mp.MultiplayerButton.Up)) {
-        sprite.setImage(assets.image`hammerBot0`)
         sprites.setDataNumber(sprite, "dir", 0)
     } else if (mp.isButtonPressed(player, mp.MultiplayerButton.Down)) {
-        sprite.setImage(assets.image`hammerBot5`)
         sprites.setDataNumber(sprite, "dir", 5)
     } else {
-        sprite.setImage(assets.image`hammerBot3`)
         sprites.setDataNumber(sprite, "dir", 3)
     }
 
+    // set image
+    if (sprites.readDataBoolean(sprite, "attacking")) {
+        sprite.setImage(hammerbotAttackImages[sprites.readDataNumber(sprite, "dir")])
+    } else {
+        sprite.setImage(hammerbotImages[sprites.readDataNumber(sprite, "dir")])
+    }
 })
 mp.onButtonEvent(mp.MultiplayerButton.Left, ControllerButtonEvent.Released, function (player: mp.Player) {
     let sprite = mp.getPlayerSprite(player)
 
     timer.after(50, function () {
         if (mp.isButtonPressed(player, mp.MultiplayerButton.Up)) {
-            sprite.setImage(assets.image`hammerBot1`)
             sprites.setDataNumber(sprite, "dir", 1)
         } else if (mp.isButtonPressed(player, mp.MultiplayerButton.Down)) {
-            sprite.setImage(assets.image`hammerBot6`)
             sprites.setDataNumber(sprite, "dir", 6)
         }
+        // set image
+        if (sprites.readDataBoolean(sprite, "attacking")) {
+            sprite.setImage(hammerbotAttackImages[sprites.readDataNumber(sprite, "dir")])
+        } else {
+            sprite.setImage(hammerbotImages[sprites.readDataNumber(sprite, "dir")])
+        }
     })
-
-
+    
+    
 })
 mp.onButtonEvent(mp.MultiplayerButton.Right, ControllerButtonEvent.Pressed, function (player: mp.Player) {
     let sprite = mp.getPlayerSprite(player)
     if (mp.isButtonPressed(player, mp.MultiplayerButton.Up)) {
-        sprite.setImage(assets.image`hammerBot2`)
         sprites.setDataNumber(sprite, "dir", 2)
     } else if (mp.isButtonPressed(player, mp.MultiplayerButton.Down)) {
-        sprite.setImage(assets.image`hammerBot7`)
         sprites.setDataNumber(sprite, "dir", 7)
     } else {
-        sprite.setImage(assets.image`hammerBot4`)
         sprites.setDataNumber(sprite, "dir", 4)
     }
 
+    // set image
+    if (sprites.readDataBoolean(sprite, "attacking")) {
+        sprite.setImage(hammerbotAttackImages[sprites.readDataNumber(sprite, "dir")])
+    } else {
+        sprite.setImage(hammerbotImages[sprites.readDataNumber(sprite, "dir")])
+    }
 })
 mp.onButtonEvent(mp.MultiplayerButton.Right, ControllerButtonEvent.Released, function (player: mp.Player) {
     let sprite = mp.getPlayerSprite(player)
 
     timer.after(50, function () {
         if (mp.isButtonPressed(player, mp.MultiplayerButton.Up)) {
-            sprite.setImage(assets.image`hammerBot1`)
             sprites.setDataNumber(sprite, "dir", 1)
         } else if (mp.isButtonPressed(player, mp.MultiplayerButton.Down)) {
-            sprite.setImage(assets.image`hammerBot6`)
             sprites.setDataNumber(sprite, "dir", 6)
+        }
+        // set image
+        if (sprites.readDataBoolean(sprite, "attacking")) {
+            sprite.setImage(hammerbotAttackImages[sprites.readDataNumber(sprite, "dir")])
+        } else {
+            sprite.setImage(hammerbotImages[sprites.readDataNumber(sprite, "dir")])
         }
     })
 
@@ -120,16 +154,19 @@ mp.onButtonEvent(mp.MultiplayerButton.Right, ControllerButtonEvent.Released, fun
 mp.onButtonEvent(mp.MultiplayerButton.Up, ControllerButtonEvent.Pressed, function (player: mp.Player) {
     let sprite = mp.getPlayerSprite(player)
     if (mp.isButtonPressed(player, mp.MultiplayerButton.Left)) {
-        sprite.setImage(assets.image`hammerBot0`)
         sprites.setDataNumber(sprite, "dir", 0)
     } else if (mp.isButtonPressed(player, mp.MultiplayerButton.Right)) {
-        sprite.setImage(assets.image`hammerBot2`)
         sprites.setDataNumber(sprite, "dir", 2)
     } else {
-        sprite.setImage(assets.image`hammerBot1`)
         sprites.setDataNumber(sprite, "dir", 1)
     }
 
+    // set image
+    if (sprites.readDataBoolean(sprite, "attacking")) {
+        sprite.setImage(hammerbotAttackImages[sprites.readDataNumber(sprite, "dir")])
+    } else {
+        sprite.setImage(hammerbotImages[sprites.readDataNumber(sprite, "dir")])
+    }
 })
 
 mp.onButtonEvent(mp.MultiplayerButton.Up, ControllerButtonEvent.Released, function (player: mp.Player) {
@@ -137,11 +174,16 @@ mp.onButtonEvent(mp.MultiplayerButton.Up, ControllerButtonEvent.Released, functi
 
     timer.after(50, function () {
         if (mp.isButtonPressed(player, mp.MultiplayerButton.Right)) {
-            sprite.setImage(assets.image`hammerBot4`)
             sprites.setDataNumber(sprite, "dir", 4)
         } else if (mp.isButtonPressed(player, mp.MultiplayerButton.Left)) {
-            sprite.setImage(assets.image`hammerBot3`)
             sprites.setDataNumber(sprite, "dir", 3)
+        }
+
+        // set image
+        if (sprites.readDataBoolean(sprite, "attacking")) {
+            sprite.setImage(hammerbotAttackImages[sprites.readDataNumber(sprite, "dir")])
+        } else {
+            sprite.setImage(hammerbotImages[sprites.readDataNumber(sprite, "dir")])
         }
     })
 
@@ -150,14 +192,18 @@ mp.onButtonEvent(mp.MultiplayerButton.Up, ControllerButtonEvent.Released, functi
 mp.onButtonEvent(mp.MultiplayerButton.Down, ControllerButtonEvent.Pressed, function (player: mp.Player) {
     let sprite = mp.getPlayerSprite(player)
     if (mp.isButtonPressed(player, mp.MultiplayerButton.Left)) {
-        sprite.setImage(assets.image`hammerBot5`)
         sprites.setDataNumber(sprite, "dir", 5)
     } else if (mp.isButtonPressed(player, mp.MultiplayerButton.Right)) {
-        sprite.setImage(assets.image`hammerBot7`)
         sprites.setDataNumber(sprite, "dir", 7)
     } else {
-        sprite.setImage(assets.image`hammerBot6`)
         sprites.setDataNumber(sprite, "dir", 6)
+    }
+
+    // set image
+    if (sprites.readDataBoolean(sprite, "attacking")) {
+        sprite.setImage(hammerbotAttackImages[sprites.readDataNumber(sprite, "dir")])
+    } else {
+        sprite.setImage(hammerbotImages[sprites.readDataNumber(sprite, "dir")])
     }
 
 })
@@ -166,11 +212,15 @@ mp.onButtonEvent(mp.MultiplayerButton.Down, ControllerButtonEvent.Released, func
 
     timer.after(50, function () {
         if (mp.isButtonPressed(player, mp.MultiplayerButton.Right)) {
-            sprite.setImage(assets.image`hammerBot4`)
             sprites.setDataNumber(sprite, "dir", 4)
         } else if (mp.isButtonPressed(player, mp.MultiplayerButton.Left)) {
-            sprite.setImage(assets.image`hammerBot3`)
             sprites.setDataNumber(sprite, "dir", 3)
+        }
+        // set image
+        if (sprites.readDataBoolean(sprite, "attacking")) {
+            sprite.setImage(hammerbotAttackImages[sprites.readDataNumber(sprite, "dir")])
+        } else {
+            sprite.setImage(hammerbotImages[sprites.readDataNumber(sprite, "dir")])
         }
     })
 
@@ -187,7 +237,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Attack, function (sprite: Sprite
         // deal damage
         let sb = sprites.readDataSprite(sprite, "statusbar") as StatusBarSprite
         sb.value--
-        
+
         // knock back
         const dx = [-50, 0, 50, -50, 50, -50, 0, 50];
         const dy = [-50, -50, -50, 0, 0, 50, 50, 50];
@@ -199,8 +249,8 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Attack, function (sprite: Sprite
 
 
 // status bar events
-statusbars.onZero(StatusBarKind.Health, function(status: StatusBarSprite) {
-    
+statusbars.onZero(StatusBarKind.Health, function (status: StatusBarSprite) {
+
     game.splash("Match over")
     game.gameOver(true)
 })
