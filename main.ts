@@ -15,11 +15,10 @@ let hammerbotAttackImages = [assets.image`hammerBotAttack0`, assets.image`hammer
 assets.image`hammerBotAttack4`, assets.image`hammerBotAttack5`, assets.image`hammerBotAttack6`, assets.image`hammerBotAttack7`]
 
 //  game start
-tiles.setCurrentTilemap(assets.tilemap`arena`)
+callScene(1)
 
-initPlayers()
 
-//  button eventsacvainvesting.ca
+//  button events
 mp.onButtonEvent(mp.MultiplayerButton.A, ControllerButtonEvent.Pressed, function (player: mp.Player) {
     const dx = [-4, 0, 4, -4, 4, -4, 0, 4];
     const dy = [-4, -4, -4, 0, 0, 4, 4, 4];
@@ -52,16 +51,19 @@ mp.onButtonEvent(mp.MultiplayerButton.Left, ControllerButtonEvent.Pressed, funct
     let sprite = mp.getPlayerSprite(player)
     spriteChangeDirection(sprite)
 })
+
 mp.onButtonEvent(mp.MultiplayerButton.Left, ControllerButtonEvent.Released, function (player: mp.Player) {
     let sprite = mp.getPlayerSprite(player)
     timer.after(50, function () {
         spriteChangeDirection(sprite)
     })
 })
+
 mp.onButtonEvent(mp.MultiplayerButton.Right, ControllerButtonEvent.Pressed, function (player: mp.Player) {
     let sprite = mp.getPlayerSprite(player)
     spriteChangeDirection(sprite)
 })
+
 mp.onButtonEvent(mp.MultiplayerButton.Right, ControllerButtonEvent.Released, function (player: mp.Player) {
     let sprite = mp.getPlayerSprite(player)
     timer.after(50, function () {
@@ -193,4 +195,13 @@ function initPlayers() {
     sprites.setDataSprite(player2, "statusbar", statusbar2)
     sprites.setDataSprite(statusbar2, "player", player2)
 
+}
+
+function callScene(sceneNum: number) {
+    if (sceneNum == 0) {
+        
+    } else if (sceneNum == 1) {
+        tiles.setCurrentTilemap(assets.tilemap`arena`)
+        initPlayers()
+    }
 }
