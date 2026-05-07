@@ -14,101 +14,136 @@ assets.image`hammerBot4`, assets.image`hammerBot5`, assets.image`hammerBot6`, as
 let hammerbotAttackImages = [assets.image`hammerBotAttack0`, assets.image`hammerBotAttack1`, assets.image`hammerBotAttack2`, assets.image`hammerBotAttack3`,
 assets.image`hammerBotAttack4`, assets.image`hammerBotAttack5`, assets.image`hammerBotAttack6`, assets.image`hammerBotAttack7`]
 
+let botOptions = ["Hammer Bot"]
+
+let currentScene = 0
+
 //  button events
 mp.onButtonEvent(mp.MultiplayerButton.A, ControllerButtonEvent.Pressed, function (player: mp.Player) {
-    const dx = [-4, 0, 4, -4, 4, -4, 0, 4];
-    const dy = [-4, -4, -4, 0, 0, 4, 4, 4];
-    // change sprite image
-    let sprite = mp.getPlayerSprite(player)
-    sprite.setImage(hammerbotAttackImages[sprites.readDataNumber(sprite, "dir")])
-    sprites.setDataBoolean(sprite, "attacking", true)
-    //  create attack sprite
-    let attackHB = sprites.create(assets.image`hammerHitbox`, SpriteKind.Attack)
-    attackHB.setFlag(SpriteFlag.Invisible, true)
-    attackHB.lifespan = 500
+    if (currentScene == 2) {
+        const dx = [-4, 0, 4, -4, 4, -4, 0, 4];
+        const dy = [-4, -4, -4, 0, 0, 4, 4, 4];
+        // change sprite image
+        let sprite = mp.getPlayerSprite(player)
+        sprite.setImage(hammerbotAttackImages[sprites.readDataNumber(sprite, "dir")])
+        sprites.setDataBoolean(sprite, "attacking", true)
+        //  create attack sprite
+        let attackHB = sprites.create(assets.image`hammerHitbox`, SpriteKind.Attack)
+        attackHB.setFlag(SpriteFlag.Invisible, true)
+        attackHB.lifespan = 500
 
-    // set position
-    let dir = sprites.readDataNumber(mp.getPlayerSprite(player), "dir")
-    let x = mp.getPlayerSprite(player).x + dx[dir]
-    let y = mp.getPlayerSprite(player).y + dy[dir]
-    attackHB.setPosition(x, y)
+        // set position
+        let dir = sprites.readDataNumber(mp.getPlayerSprite(player), "dir")
+        let x = mp.getPlayerSprite(player).x + dx[dir]
+        let y = mp.getPlayerSprite(player).y + dy[dir]
+        attackHB.setPosition(x, y)
 
-    //  assign the player as parent
-    sprites.setDataSprite(attackHB, "parent", mp.getPlayerSprite(player))
+        //  assign the player as parent
+        sprites.setDataSprite(attackHB, "parent", mp.getPlayerSprite(player))
 
 
-    timer.after(500, function () {
-        sprite.setImage(hammerbotImages[sprites.readDataNumber(sprite, "dir")])
-        sprites.setDataBoolean(sprite, "attacking", false)
-    })
+        timer.after(500, function () {
+            sprite.setImage(hammerbotImages[sprites.readDataNumber(sprite, "dir")])
+            sprites.setDataBoolean(sprite, "attacking", false)
+        })
+    }
+
+
 })
 
 mp.onButtonEvent(mp.MultiplayerButton.Left, ControllerButtonEvent.Pressed, function (player: mp.Player) {
-    let sprite = mp.getPlayerSprite(player)
-    spriteChangeDirection(sprite)
+    if (currentScene == 2) {
+        let sprite = mp.getPlayerSprite(player)
+        spriteChangeDirection(sprite)
+    }
+
 })
 
 mp.onButtonEvent(mp.MultiplayerButton.Left, ControllerButtonEvent.Released, function (player: mp.Player) {
-    let sprite = mp.getPlayerSprite(player)
-    timer.after(50, function () {
-        spriteChangeDirection(sprite)
-    })
+    if (currentScene == 2) {
+        let sprite = mp.getPlayerSprite(player)
+        timer.after(50, function () {
+            spriteChangeDirection(sprite)
+        })
+    }
+
 })
 
 mp.onButtonEvent(mp.MultiplayerButton.Right, ControllerButtonEvent.Pressed, function (player: mp.Player) {
-    let sprite = mp.getPlayerSprite(player)
-    spriteChangeDirection(sprite)
+    if (currentScene == 2) {
+        let sprite = mp.getPlayerSprite(player)
+        spriteChangeDirection(sprite)
+    }
+
 })
 
 mp.onButtonEvent(mp.MultiplayerButton.Right, ControllerButtonEvent.Released, function (player: mp.Player) {
-    let sprite = mp.getPlayerSprite(player)
-    timer.after(50, function () {
-        spriteChangeDirection(sprite)
-    })
+    if (currentScene == 2) {
+        let sprite = mp.getPlayerSprite(player)
+        timer.after(50, function () {
+            spriteChangeDirection(sprite)
+        })
+    }
+
 })
 
 mp.onButtonEvent(mp.MultiplayerButton.Up, ControllerButtonEvent.Pressed, function (player: mp.Player) {
-    let sprite = mp.getPlayerSprite(player)
-    spriteChangeDirection(sprite)
+    if (currentScene == 2) {
+        let sprite = mp.getPlayerSprite(player)
+        spriteChangeDirection(sprite)
+    }
+
 })
 
 mp.onButtonEvent(mp.MultiplayerButton.Up, ControllerButtonEvent.Released, function (player: mp.Player) {
-    let sprite = mp.getPlayerSprite(player)
-    timer.after(50, function () {
-        spriteChangeDirection(sprite)
-    })
+    if (currentScene == 2) {
+        let sprite = mp.getPlayerSprite(player)
+        timer.after(50, function () {
+            spriteChangeDirection(sprite)
+        })
+    }
+
 })
 
 mp.onButtonEvent(mp.MultiplayerButton.Down, ControllerButtonEvent.Pressed, function (player: mp.Player) {
-    let sprite = mp.getPlayerSprite(player)
-    spriteChangeDirection(sprite)
+    if (currentScene == 2) {
+        let sprite = mp.getPlayerSprite(player)
+        spriteChangeDirection(sprite)
+    }
+
 })
 
 mp.onButtonEvent(mp.MultiplayerButton.Down, ControllerButtonEvent.Released, function (player: mp.Player) {
-    let sprite = mp.getPlayerSprite(player)
-    timer.after(50, function () {
-        spriteChangeDirection(sprite)
-    })
+    if (currentScene == 2) {
+        let sprite = mp.getPlayerSprite(player)
+        timer.after(50, function () {
+            spriteChangeDirection(sprite)
+        })
+    }
+
 })
 
 
 //  overlap events
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Attack, function (sprite: Sprite, otherSprite: Sprite) {
-    if (sprite != sprites.readDataSprite(otherSprite, "parent")) {
-        sprites.destroy(otherSprite)
-        sprite.sayText("Hit", 2000)
+    if (currentScene == 2) {
+        if (sprite != sprites.readDataSprite(otherSprite, "parent")) {
+            sprites.destroy(otherSprite)
+            sprite.sayText("Hit", 2000)
 
-        // deal damage
-        let sb = sprites.readDataSprite(sprite, "statusbar") as StatusBarSprite
-        sb.value--
+            // deal damage
+            let sb = sprites.readDataSprite(sprite, "statusbar") as StatusBarSprite
+            sb.value--
 
-        // knock back
-        const dx = [-50, 0, 50, -50, 50, -50, 0, 50];
-        const dy = [-50, -50, -50, 0, 0, 50, 50, 50];
+            // knock back
+            const dx = [-50, 0, 50, -50, 50, -50, 0, 50];
+            const dy = [-50, -50, -50, 0, 0, 50, 50, 50];
 
-        let dir = sprites.readDataNumber(sprites.readDataSprite(otherSprite, "parent"), "dir")
-        sprite.setVelocity(dx[dir], dy[dir])
+            let dir = sprites.readDataNumber(sprites.readDataSprite(otherSprite, "parent"), "dir")
+            sprite.setVelocity(dx[dir], dy[dir])
+        }
     }
+
 })
 
 
@@ -121,7 +156,7 @@ statusbars.onZero(StatusBarKind.Health, function (status: StatusBarSprite) {
 
 
 //  game start
-callScene(0)
+callScene(1)
 
 // functions
 
@@ -201,6 +236,7 @@ function initPlayers() {
 }
 
 function callScene(sceneNum: number) {
+    currentScene = sceneNum
     if (sceneNum == 0) { // intro
         scene.setBackgroundColor(1)
         let textSprite = textsprite.create("PIXELBOTS!")
@@ -209,11 +245,12 @@ function callScene(sceneNum: number) {
         textSprite.setPosition(80, 60)
         textSprite.setScale(0.25, ScaleAnchor.Middle)
         scaleSpriteOverTime(textSprite, 2.5, 2000)
-        pause(2000) 
+        pause(2000)
         sprites.destroyAllSpritesOfKind(SpriteKind.Text)
         callScene(1)
     } else if (sceneNum == 1) { // select screen
-        
+        scene.setBackgroundColor(3)
+        robotSelectMenu()
     } else if (sceneNum == 2) { // arena
         tiles.setCurrentTilemap(assets.tilemap`arena`)
         initPlayers()
@@ -226,4 +263,15 @@ function scaleSpriteOverTime(sprite: Sprite, target: number, duration: number) {
         sprite.changeScale(interval, ScaleAnchor.Middle)
         pause(10)
     }
+}
+
+function robotSelectMenu() {
+
+    let textSprite = textsprite.create(botOptions[0])
+    textSprite.setPosition(35, 10)
+    let playerSelector = sprites.create(assets.image`hammerBotSelector`, SpriteKind.Player)
+    playerSelector.setScale(0.75, ScaleAnchor.Middle)
+    playerSelector.setPosition(30, 45)
+    
+    
 }
