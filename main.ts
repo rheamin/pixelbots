@@ -14,10 +14,6 @@ assets.image`hammerBot4`, assets.image`hammerBot5`, assets.image`hammerBot6`, as
 let hammerbotAttackImages = [assets.image`hammerBotAttack0`, assets.image`hammerBotAttack1`, assets.image`hammerBotAttack2`, assets.image`hammerBotAttack3`,
 assets.image`hammerBotAttack4`, assets.image`hammerBotAttack5`, assets.image`hammerBotAttack6`, assets.image`hammerBotAttack7`]
 
-//  game start
-callScene(1)
-
-
 //  button events
 mp.onButtonEvent(mp.MultiplayerButton.A, ControllerButtonEvent.Pressed, function (player: mp.Player) {
     const dx = [-4, 0, 4, -4, 4, -4, 0, 4];
@@ -124,6 +120,9 @@ statusbars.onZero(StatusBarKind.Health, function (status: StatusBarSprite) {
 })
 
 
+//  game start
+callScene(0)
+
 // functions
 
 /**
@@ -131,6 +130,7 @@ statusbars.onZero(StatusBarKind.Health, function (status: StatusBarSprite) {
 3 [ ] 4
 5  6  7
  */
+
 
 function spriteChangeDirection(sprite: Sprite) {
     let player = mp.getPlayerBySprite(sprite)
@@ -163,6 +163,9 @@ function spriteChangeDirection(sprite: Sprite) {
     }
 }
 
+/**
+ *
+ */
 function initPlayers() {
     let player1 = sprites.create(assets.image`hammerBot6`, SpriteKind.Player)
     player1.setPosition(20, 60)
@@ -198,10 +201,29 @@ function initPlayers() {
 }
 
 function callScene(sceneNum: number) {
-    if (sceneNum == 0) {
+    if (sceneNum == 0) { // intro
+        scene.setBackgroundColor(1)
+        let textSprite = textsprite.create("PIXELBOTS!")
+        textSprite.setOutline(1, 6)
+        textSprite.setMaxFontHeight(8)
+        textSprite.setPosition(80, 60)
+        textSprite.setScale(0.25, ScaleAnchor.Middle)
+        scaleSpriteOverTime(textSprite, 2.5, 2000)
+        pause(2000) 
+        sprites.destroyAllSpritesOfKind(SpriteKind.Text)
+        callScene(1)
+    } else if (sceneNum == 1) { // select screen
         
-    } else if (sceneNum == 1) {
+    } else if (sceneNum == 2) { // arena
         tiles.setCurrentTilemap(assets.tilemap`arena`)
         initPlayers()
+    }
+}
+
+function scaleSpriteOverTime(sprite: Sprite, target: number, duration: number) {
+    let interval = (target / duration) * 10
+    for (let i = 0; i < duration / 10; i++) {
+        sprite.changeScale(interval, ScaleAnchor.Middle)
+        pause(10)
     }
 }
