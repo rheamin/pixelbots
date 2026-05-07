@@ -149,14 +149,14 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Attack, function (sprite: Sprite
 
 // status bar events
 statusbars.onZero(StatusBarKind.Health, function (status: StatusBarSprite) {
-
-    game.splash("Match over")
+    pause(500)
+    game.setGameOverMessage(true, "Match Over !!")
     game.gameOver(true)
 })
 
 
 //  game start
-callScene(1)
+callScene(0)
 
 // functions
 
@@ -247,8 +247,8 @@ function callScene(sceneNum: number) {
         scaleSpriteOverTime(textSprite, 2.5, 2000)
         pause(2000)
         sprites.destroyAllSpritesOfKind(SpriteKind.Text)
-        callScene(1)
-    } else if (sceneNum == 1) { // select screen
+        callScene(2)
+    } else if (sceneNum == 1) { // select screen TODO: Impliment select
         scene.setBackgroundColor(3)
         robotSelectMenu()
     } else if (sceneNum == 2) { // arena
